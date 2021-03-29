@@ -72,9 +72,21 @@ const newId = () => {
 app.post("/api/persons", (request, response) => {
   const body = request.body;
 
-  if (!body.name) {
+  if (!body.name && !body.number) {
+    return response.status(400).json({
+      error: "name and number missing",
+    });
+  } else if (!body.name) {
     return response.status(400).json({
       error: "name missing",
+    });
+  } else if (!body.number) {
+    return response.status(400).json({
+      error: "number missing",
+    });
+  } else if (persons.map((person) => person.name).includes(body.name)) {
+    return response.status(400).json({
+      error: "name already exists in phonebook",
     });
   }
 
