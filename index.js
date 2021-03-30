@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
+const { request } = require("express");
 
 app.use(express.json());
 app.use(cors());
@@ -39,6 +40,10 @@ let persons = [
     id: 8,
   },
 ];
+
+app.get("/", (request, response) => {
+  response.send("<h1>landing test</h1>");
+});
 
 app.get("/api/persons", (request, response) => {
   response.json(persons);
@@ -105,7 +110,7 @@ app.post("/api/persons", (request, response) => {
   response.json(newPerson);
 });
 
-const PORT = process.env.port || 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
