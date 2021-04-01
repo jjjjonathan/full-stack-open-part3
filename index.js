@@ -41,10 +41,7 @@ app.get('/api/persons/:id', (request, response) => {
 
   response.status(204).end();
 });
-
-const newId = () => {
-  return Math.round(Math.random() * 100000000);
-};
+*/
 
 app.post('/api/persons', (request, response) => {
   const body = request.body;
@@ -61,23 +58,27 @@ app.post('/api/persons', (request, response) => {
     return response.status(400).json({
       error: 'number missing',
     });
-  } else if (persons.map((person) => person.name).includes(body.name)) {
+  } /* else if (persons.map((person) => person.name).includes(body.name)) {
     return response.status(400).json({
       error: 'name already exists in phonebook',
     });
-  }
+  } */
 
-  const newPerson = {
+  const newPerson = new Person({
     name: body.name,
     number: body.number,
-    id: newId(),
-  };
+  });
 
-  persons = [...persons, newPerson];
-
-  response.json(newPerson);
+  newPerson
+    .save()
+    .then((savedPerson) => {
+      response.json(savedPerson);
+    })
+    .catch((error) => {
+      console.log('Error saving new entry to database');
+      console.log(error.message);
+    });
 });
- */
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

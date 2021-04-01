@@ -6,10 +6,14 @@ POST http://localhost:3001/api/persons/ HTTP/1.1
 content-type: application/json
 
 {
-
-    
+  "name": "reserved",
+  "number": "234098-120394813"
 }
 
 ###
 
-GET http://localhost:3001/api/persons/60651addba9cafec59b157f
+GET http://localhost:3001/api/persons/
+
+###
+
+GET http://localhost:3001/api/persons/6064ed7080de4ff14b215c77
