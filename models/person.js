@@ -22,14 +22,14 @@ mongoose
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
-    minlength: 2,
+    minlength: 3,
     maxlength: 50,
     required: true,
     unique: true,
   },
   number: {
     type: String,
-    minlength: 4,
+    minlength: 8,
     maxlength: 20,
     required: true,
   },

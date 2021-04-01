@@ -14,8 +14,8 @@ POST http://localhost:3001/api/persons/
 content-type: application/json
 
 {
-  "name": "Rando",
-  "number": "234033"
+  "name": "2f",
+  "number": "234132"
 }
 
 ###
@@ -25,5 +25,5 @@ content-type: application/json
 
 {
   "name": "Jonny the dog",
-  "number": "RUFF RUFF"
+  "number": "12390293842234"
 }

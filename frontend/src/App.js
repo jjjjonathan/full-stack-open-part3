@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import personsService from "./services/persons";
-import Numbers from "./components/Numbers";
-import Filter from "./components/Filter";
-import Add from "./components/Add";
-import Notification from "./components/Notification";
+import React, { useEffect, useState } from 'react';
+import personsService from './services/persons';
+import Numbers from './components/Numbers';
+import Filter from './components/Filter';
+import Add from './components/Add';
+import Notification from './components/Notification';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
-  const [newName, setNewName] = useState("");
-  const [newNumber, setNewNumber] = useState("");
-  const [query, setQuery] = useState("");
-  const [message, setMessage] = useState("");
+  const [newName, setNewName] = useState('');
+  const [newNumber, setNewNumber] = useState('');
+  const [query, setQuery] = useState('');
+  const [message, setMessage] = useState('');
   const [msgIsError, setMsgIsError] = useState(false);
 
   const successMessage = (text) => {
     setMessage(text);
     setMsgIsError(false);
     setTimeout(() => {
-      setMessage("");
+      setMessage('');
     }, 3000);
   };
 
@@ -25,7 +25,7 @@ const App = () => {
     setMessage(text);
     setMsgIsError(true);
     setTimeout(() => {
-      setMessage("");
+      setMessage('');
     }, 3000);
   };
 
@@ -56,22 +56,21 @@ const App = () => {
         personsService
           .put(updatedEntry)
           .then(() => {
+            setPersons(
+              persons.map((person) => {
+                return person.id === updatedEntry.id ? updatedEntry : person;
+              })
+            );
             successMessage(`Successfully updated number for ${newName}!`);
           })
-          .catch(() => {
-            errorMessage(
-              `${newName} has already been removed from the phonebook. Please refresh the page`
-            );
+          .catch((error) => {
+            console.error(error);
+            console.error(error.response.data.error);
+            errorMessage(error.response.data.error);
           });
 
-        setPersons(
-          persons.map((person) => {
-            return person.id === updatedEntry.id ? updatedEntry : person;
-          })
-        );
-
-        setNewName("");
-        setNewNumber("");
+        setNewName('');
+        setNewNumber('');
       }
     } else {
       const newEntry = {
@@ -79,13 +78,20 @@ const App = () => {
         number: newNumber,
         id: Math.round(Math.random() * 10000000000),
       };
-      personsService.create(newEntry).then((response) => {
-        setPersons([...persons, newEntry]);
-        successMessage(`Successfully added ${newName} to phonebook!`);
-      });
+      personsService
+        .create(newEntry)
+        .then((response) => {
+          setPersons([...persons, newEntry]);
+          successMessage(`Successfully added ${newName} to phonebook!`);
+        })
+        .catch((error) => {
+          console.error(error);
+          console.error(error.response.data.error);
+          errorMessage(error.response.data.error);
+        });
 
-      setNewName("");
-      setNewNumber("");
+      setNewName('');
+      setNewNumber('');
     }
   };
 
