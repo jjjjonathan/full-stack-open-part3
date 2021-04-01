@@ -1,4 +1,4 @@
-DELETE http://localhost:3001/api/persons/60653b3b7a998a0c6ecfb554
+DELETE http://localhost:3001/api/persons/60653b3b7a998a0c6e84b54
 
 ###
 
@@ -12,8 +12,14 @@ content-type: application/json
 
 ###
 
-GET http://localhost:3001/api/persons/
+GET http://localhost:3001/api/persons/6064ed7080de4ff14b215c77
 
 ###
 
-GET http://localhost:3001/api/persons/6064ed7080de4ff14b215c77
+PUT http://localhost:3001/api/persons/6064ed7080de4ff14b215c77
+content-type: application/json
+
+{
+  "name": "Jonny the dog",
+  "number": "RUFF RUFF"
+}
