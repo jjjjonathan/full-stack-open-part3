@@ -18,12 +18,14 @@ app.get('/api/persons', (request, response, next) => {
     .catch((error) => next(error));
 });
 
-/* app.get('/info', (request, response) => {
-  const entries = persons.length;
-
-  response.send(`<p>Phonebook contains ${entries} entries</p>
+app.get('/info', (request, response, next) => {
+  Person.find({})
+    .then((people) => {
+      response.send(`<p>Phonebook contains ${people.length} entries</p>
   <p>${new Date().toString()}<p>`);
-}); */
+    })
+    .catch((error) => next(error));
+});
 
 app.get('/api/persons/:id', (request, response, next) => {
   Person.findById(request.params.id)
@@ -56,11 +58,7 @@ app.post('/api/persons', (request, response, next) => {
     return response.status(400).json({
       error: 'number missing',
     });
-  } /* else if (persons.map((person) => person.name).includes(body.name)) {
-    return response.status(400).json({
-      error: 'name already exists in phonebook',
-    });
-  } */
+  }
 
   const newPerson = new Person({
     name: body.name,
