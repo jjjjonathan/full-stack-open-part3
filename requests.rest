@@ -1,18 +1,22 @@
-DELETE http://localhost:3001/api/persons/60653b3b7a998a0c6e84b54
-
-###
-
-POST http://localhost:3001/api/persons/ HTTP/1.1
-content-type: application/json
-
-{
-  "name": "reserved",
-  "number": "234098-120394813"
-}
+GET http://localhost:3001/api/persons
 
 ###
 
 GET http://localhost:3001/api/persons/6064ed7080de4ff14b215c77
+
+###
+
+DELETE http://localhost:3001/api/persons/60653b3b7a998a0c6e84b54
+
+###
+
+POST http://localhost:3001/api/persons/
+content-type: application/json
+
+{
+  "name": "Rando",
+  "number": "234033"
+}
 
 ###
 
